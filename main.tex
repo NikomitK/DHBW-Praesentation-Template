@@ -1,0 +1,67 @@
+\documentclass[ngerman,14pt,aspectratio=169]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{textpos} %logo in frametitle
+
+\graphicspath{ {./images/} }
+
+\definecolor{dhbw_grau}{RGB}{93,104,110}
+\definecolor{dhbw_rot}{RGB}{227,6,19}
+\definecolor{dunkelgrau}{RGB}{41,55,67}
+\definecolor{hellgrau}{RGB}{239,241,242}
+
+\newcommand{\dhbwlogo}{\includegraphics[width=5cm]{dhbw_lang_trans}}
+
+\useinnertheme{metropolis}
+\usefonttheme{metropolis}
+\setbeamercolor{background canvas}{bg=white}
+
+\setbeamercolor{progress bar}{fg=dhbw_rot, bg=hellgrau}
+
+\setbeamercolor{normal text}{fg=dhbw_grau} %bg hier macht block bg
+\setbeamercolor{alerted text}{fg=dhbw_rot}
+
+\setbeamercolor{frametitle}{fg=dhbw_rot,bg=hellgrau}
+\setbeamercolor{title}{fg=dhbw_rot}
+\setbeamercolor{subtitle}{fg=dunkelgrau}
+\setbeamercolor{section title}{fg=dhbw_rot}
+\setbeamercolor{institute}{fg=dhbw_rot}
+
+% Logo in frametitle
+\addtobeamertemplate{frametitle}{}{%
+	\begin{textblock*}{5cm}(\textwidth-4cm,-1.3cm)
+		\dhbwlogo
+\end{textblock*}}
+
+\setbeamertemplate{frame footer}{
+	\hskip 2.5em \insertdate
+}
+
+\title{Implementierung Erweitertes Audit Logging}
+%\subtitle{subtitle}
+\author{Nikolas Bodenmüller}
+\institute[DHBW Stuttgart]{Duale Hochschule Baden-Württemberg Stuttgart}
+\date{24.09.2024}
+
+\begin{document}
+	\metroset{block=fill, sectionpage=simple}
+	
+	\titlegraphic { 
+		\begin{tikzpicture}[overlay,remember picture]
+			\node[right=0.5cm] at (current page.155){
+				\dhbwlogo
+			};
+		\end{tikzpicture}
+	}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	
+	
+\end{document}
