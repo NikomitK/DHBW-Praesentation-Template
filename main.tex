@@ -1,5 +1,6 @@
-\documentclass[ngerman,14pt,aspectratio=169]{beamer}
+\documentclass[ngerman,14pt,aspectratio=1610]{beamer}
 
+% Imports
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -7,24 +8,33 @@
 \usepackage{multicol}
 \usepackage{textpos} %logo in frametitle
 
+% Startpfad für Bilder setzen
 \graphicspath{ {./images/} }
 
+% DHBW Stuttgart logo mit transparentem Hintergrund
+\newcommand{\dhbwlogo}{\includegraphics[width=5cm]{dhbw_lang_trans}}
+
+% Multicol column balancing ausschalten
+\raggedcolumns
+
+% Basis-Theme
+\usetheme[progressbar=frametitle]{metropolis} % Hier kann die progressbar deaktiviert/replaziert werden
+\setbeamertemplate{frame numbering}[counter]
+\useoutertheme{metropolis}
+\useinnertheme{metropolis}
+\usefonttheme{metropolis}
+\setbeamercolor{background canvas}{bg=white}
+
+% DHBW Farben
 \definecolor{dhbw_grau}{RGB}{93,104,110}
 \definecolor{dhbw_rot}{RGB}{227,6,19}
 \definecolor{dunkelgrau}{RGB}{41,55,67}
 \definecolor{hellgrau}{RGB}{239,241,242}
 
-\newcommand{\dhbwlogo}{\includegraphics[width=5cm]{dhbw_lang_trans}}
-
-\useinnertheme{metropolis}
-\usefonttheme{metropolis}
-\setbeamercolor{background canvas}{bg=white}
-
+% DHBW Farben einbauen
 \setbeamercolor{progress bar}{fg=dhbw_rot, bg=hellgrau}
-
 \setbeamercolor{normal text}{fg=dhbw_grau} %bg hier macht block bg
 \setbeamercolor{alerted text}{fg=dhbw_rot}
-
 \setbeamercolor{frametitle}{fg=dhbw_rot,bg=hellgrau}
 \setbeamercolor{title}{fg=dhbw_rot}
 \setbeamercolor{subtitle}{fg=dunkelgrau}
@@ -37,10 +47,12 @@
 		\dhbwlogo
 \end{textblock*}}
 
+% Datum in der Fußzeile
 \setbeamertemplate{frame footer}{
 	\hskip 2.5em \insertdate
 }
 
+% Daten für die Titelseite
 \title{Implementierung Erweitertes Audit Logging}
 %\subtitle{subtitle}
 \author{Nikolas Bodenmüller}
@@ -63,5 +75,74 @@
 	\end{frame}
 	
 	
+		\begin{itemize}
+			\item <1-> Hallo Welt
+			\item <2-> Beispielstichpunkt ab Schritt 2
+			\item <-2> Beispielschritt bis inkl. Schritt 2
+		\end{itemize}
+		
+		\onslide<2,4>{onslide<x> ist zwar unsichtbar bei $Seite \neq x$} \onslide<3->{Der Platz wird aber trotzdem blockiert}
+		
+		\only<2>{only<x> dagegen verbraucht den Platz}\only<3>{nur, wenn der Text tatsächlich sichtbar ist}
+		
+		Hier geht auch \alert<1-3>{ALARRRMMMM}, \textbf<2-3>{Fett},\textit<3>{Italienisch}, \alert<4>{\textit<4>{\textbf<4>{etc...}}}
+	\end{frame}
+
 	
+
+	
+	\begin{frame}[t]{Zwei Spalten} \vspace{10pt}
+		\begin{columns}[T, onlytextwidth]
+			\begin{column}{0.45\textwidth}
+				\begin{itemize}
+					\item test1
+					\item test2
+					\item test3
+				\end{itemize}
+				\begin{block}{Wichtig!}
+				Bei den Columns muss das große T als Argument verwendet werden
+				\end{block}
+			\end{column}
+			
+			\begin{column}{0.45\textwidth}
+				\includegraphics[width=\linewidth]{testbild}
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+		
+	\begin{frame}[t]{Drei Spalten} \vspace{10pt}
+		\begin{columns}[onlytextwidth]
+			\column{0.33\textwidth}
+			Spalte 1
+			\column{0.33\textwidth}
+			Spalte 2
+			\column{0.33\textwidth}
+			Spalte 3
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Automatisch verteilte Spalten}
+		\begin{multicols*}{3}
+			[
+			\textbf{Multicols} \\
+			Das Package $multicols$ ermöglicht es, anzugeben, auf wie viele Spalten ein bestimmter Inhalt automatisch verteilt werden soll.
+			]
+			\begin{enumerate}[a)]
+				\item test1
+				\item test2
+				\item test3
+				\item test1
+				\item test2
+				\item test3
+				\item test1
+				\item test2
+				\item test3
+				\item test1
+				\item test2
+			\end{enumerate}
+		\end{multicols*}
+	\end{frame}
+	
+
 \end{document}
