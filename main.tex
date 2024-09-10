@@ -11,25 +11,46 @@
 \usepackage{multicol}
 \usepackage{textpos} %logo in frametitle
 \usepackage{ifthen}
+\usepackage{totcount}
 
 % Startpfad für Bilder setzen
 \graphicspath{ {./images/} }
 
 % DHBW Stuttgart logo mit transparentem Hintergrund
 \newcommand{\dhbwlogo}{\includegraphics[width=5cm]{dhbw_lang_trans}}
-\newcommand{\secpagnum}{\insertsectionnumber}
 
+
+
+% Subsections zählen
+\def\secname{Gliederung}
+\newcommand{\mysection}[1]{
+	\section{#1}
+	\newtotcounter{#1}
+	\def\secname{#1}
+	}
+
+\newcommand{\mysubsection}[1]{
+	\subsection{#1} 
+	\stepcounter{\secname}
+}
+
+% Nummern bei Frametitle
+\newcommand{\secpagnum}{\insertsectionnumber.\thesubsection}
 \newcommand{\lastpagenum}{1}
 \let\oldframetitle\frametitle
 \renewcommand{\frametitle}[1]{
 	\ifthenelse{\equal{\lastpagenum}{\insertslidenumber}}{
-		\subsection{}
+		\mysubsection{}
 		\renewcommand{\lastpagenum}{\insertslidenumber}
 	}{
 		% Hier soll nichts passieren, damit bei gleichen slides der title nicht neu gesetzt wird
 	}
+	
+	\ifthenelse{\totvalue{\secname}>1}{
 	\oldframetitle{\secpagnum~#1}
-		
+	}{
+	\oldframetitle{\insertsectionnumber~#1}
+	}
 }
 
 
@@ -90,13 +111,16 @@
 	\end{tikzpicture}
 }
 
+\regtotcounter{section}
+\regtotcounter{subsection}
+
 \begin{document}
 	
 	\begin{frame}[plain,noframenumbering]
 		\titlepage
 	\end{frame}
 
-	\section{Gliederung}
+	\mysection{Gliederung}
 	
 	\begin{frame}[t]{Gliederung}
 		\begin{multicols*}{2}
@@ -105,10 +129,10 @@
 	\end{frame}
 	
 	
-	\renewcommand{\secpagnum}{\insertsectionnumber.\thesubsection}
+	
 	
 	\metroset{sectionpage=simple} % Erst hier definiert, damit die Gliederung keine Sectionpage hat
-	\section{Mach erschmal die basics}
+	\mysection{Mach erschmal die basics}
 	
 	\begin{frame}[t]{``Animationen''} \vspace{10pt}
 		\begin{itemize}
@@ -126,7 +150,7 @@
 
 	
 	\metroset{sectionpage=simple}
-	\section{Spalten}
+	\mysection{Spalten}
 
 	
 	\begin{frame}[t]{Zwei Spalten} \vspace{10pt}
@@ -182,5 +206,6 @@
 		\end{multicols*}
 	\end{frame}
 	
+	\mysection{test}
 
 \end{document}
