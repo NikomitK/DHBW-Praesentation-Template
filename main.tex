@@ -16,8 +16,22 @@
 % Startpfad für Bilder setzen
 \graphicspath{ {./images/} }
 
-% DHBW Stuttgart logo mit transparentem Hintergrund
-\newcommand{\dhbwlogo}{\includegraphics[width=5cm]{dhbw_lang_trans}}
+% DHBW Logos
+\newcommand{\dhbwlangtrans}{\includegraphics[width=5cm]{dhbw_lang_trans}}
+\newcommand{\dhbwkurzweiss}{\includegraphics[width=0.5\paperwidth]{dhbw}}
+
+% Endseite
+\newcommand{\finalpage}[2][Vielen Dank für ihre Aufmerksamkeit!]{
+	\metroset{sectionpage=none}
+	\section*{#1}
+	\begin{frame} \vspace{60pt}
+		
+		\sectionpage
+		\vspace{10pt}
+		\centering
+		#2
+	\end{frame}
+}
 
 % Subsections zählen
 \def\secname{Gliederung}
@@ -26,7 +40,6 @@
 	\newtotcounter{#1}
 	\def\secname{#1}
 }
-
 \newcommand{\mysubsection}[1]{
 	\subsection{#1} 
 	\stepcounter{\secname}
@@ -66,6 +79,15 @@
 \setbeamertemplate{section in toc}[sections numbered]
 \setbeamertemplate{subsection in toc}[subsections numbered]
 
+% Zeilenabstand ToC
+\makeatletter
+\patchcmd{\beamer@sectionintoc}
+{\vfill}
+{\vskip\itemsep}
+{}
+{}
+\makeatother 
+
 % DHBW Farben
 \definecolor{dhbw_grau}{RGB}{93,104,110}
 \definecolor{dhbw_rot}{RGB}{227,6,19}
@@ -85,13 +107,13 @@
 % Logo in frametitle
 \addtobeamertemplate{frametitle}{}{%
 	\begin{textblock*}{5cm}(\textwidth-4cm,-1.3cm)
-		\dhbwlogo
+		\dhbwlangtrans
 \end{textblock*}}
 
 % Datum in der Fußzeile
 \setbeamertemplate{frame footer}{
 	\hskip 2.5em \insertdate
-}
+} 
 
 % Daten für die Titelseite
 \title{Präsentationstitel}
@@ -102,7 +124,7 @@
 \titlegraphic { 
 	\begin{tikzpicture}[overlay,remember picture]
 		\node[right=0.5cm] at (current page.155){
-			\dhbwlogo
+			\dhbwlangtrans
 		};
 	\end{tikzpicture}
 }
@@ -119,8 +141,10 @@
 	\mysection{Gliederung}
 	
 	\begin{frame}[t]{Gliederung} \vspace{20pt}
+		
 		\begin{columns}[T, onlytextwidth]
 			\column{0.5\textwidth}
+			\linespread{1.5}
 			\tableofcontents
 			\column{0.5\textwidth}
 		\end{columns}
@@ -138,9 +162,9 @@
 		
 		\onslide<2,4>{onslide<x> ist zwar unsichtbar bei $Seite \neq x$} \onslide<3->{Der Platz wird aber trotzdem blockiert}
 		
-		\only<2>{only<x> dagegen verbraucht den Platz}\only<3>{nur, wenn der Text tatsächlich sichtbar ist}
+		\only<2>{only<x> dagegen verbraucht den Platz nur,}\only<3>{$\rightarrow$ wenn der Text tatsächlich sichtbar ist}
 		
-		Hier geht auch \alert<1-3>{ALARRRMMMM}, \textbf<2-3>{Fett},\textit<3>{Italienisch}, \alert<4>{\textit<4>{\textbf<4>{etc...}}}
+		Hier geht auch \alert<1-3>{ALARRRMMMM}, \textbf<2-3>{Fett}, \textit<3>{Italienisch}, \alert<4>{\textit<4>{\textbf<4>{etc...}}}
 	\end{frame}
 
 	
@@ -197,6 +221,9 @@
 			\end{enumerate}
 		\end{multicols*}
 	\end{frame}
+	
+	\finalpage{\dhbwkurzweiss}
+	%\frame{\sectionpage}
 
 
 \end{document}
