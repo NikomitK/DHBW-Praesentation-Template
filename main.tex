@@ -9,9 +9,9 @@
 \usepackage{babel}
 \usepackage{graphicx}
 \usepackage{multicol}
-\usepackage{textpos} %logo in frametitle
-\usepackage{ifthen}
-\usepackage{totcount}
+\usepackage{textpos} % Logo in frametitle
+\usepackage{ifthen} % Für das \ifthenelse
+\usepackage{totcount} % Für Counter, die in main.aux gespeichert werden
 
 % Startpfad für Bilder setzen
 \graphicspath{ {./images/} }
@@ -20,28 +20,17 @@
 \newcommand{\dhbwlangtrans}{\includegraphics[width=5cm]{dhbw_lang_trans}}
 \newcommand{\dhbwkurzweiss}{\includegraphics[width=0.5\paperwidth]{dhbw}}
 
-% Endseite
-\newcommand{\finalpage}[2][Vielen Dank für ihre Aufmerksamkeit!]{
-	\metroset{sectionpage=none}
-	\section*{#1}
-	\begin{frame} \vspace{60pt}
-		
-		\sectionpage
-		\vspace{10pt}
-		\centering
-		#2
-	\end{frame}
-}
-
 % Subsections zählen
-\def\secname{Gliederung}
-\newcommand{\mysection}[1]{
-	\section{#1}
+\def\secname{Gliederung} % Der Titel der jeweiligen Section wird in secname gespeichert, damit innerhalb der Section der counter mit dem name erhöht werden kann
+\let\oldsection\section
+\renewcommand{\section}[1]{
+	\oldsection{#1}
 	\newtotcounter{#1}
 	\def\secname{#1}
 }
-\newcommand{\mysubsection}[1]{
-	\subsection{#1} 
+\let\oldsubsection\subsection
+\renewcommand{\subsection}[1]{
+	\oldsubsection{#1} 
 	\stepcounter{\secname}
 }
 
@@ -51,7 +40,7 @@
 \let\oldframetitle\frametitle
 \renewcommand{\frametitle}[1]{
 	\ifthenelse{\equal{\lastpagenum}{\insertslidenumber}}{
-		\mysubsection{}
+		\subsection{}
 		\renewcommand{\lastpagenum}{\insertslidenumber}
 	}{
 		% Hier soll nichts passieren, damit bei gleichen slides der title nicht neu gesetzt wird
@@ -115,6 +104,19 @@
 	\hskip 2.5em \insertdate
 } 
 
+% Endseite
+\newcommand{\finalpage}[2][Vielen Dank für ihre Aufmerksamkeit!]{
+\metroset{sectionpage=none}
+\oldsection*{#1}
+\begin{frame} \vspace{60pt}
+	
+	\sectionpage
+	\vspace{10pt}
+	\centering
+	#2
+\end{frame}
+}
+
 % Daten für die Titelseite
 \title{Präsentationstitel}
 %\subtitle{subtitle}
@@ -138,7 +140,7 @@
 		\titlepage
 	\end{frame}
 
-	\mysection{Gliederung}
+	\section{Gliederung}
 	
 	\begin{frame}[t]{Gliederung} \vspace{20pt}
 		\begin{columns}[T, onlytextwidth]
@@ -150,7 +152,7 @@
 	\end{frame}
 	
 	\metroset{sectionpage=simple} % Erst hier definiert, damit die Gliederung keine Sectionpage hat
-	\mysection{Mach erschmal die basics}
+	\section{Mach erschmal die basics}
 	
 	\begin{frame}[t]{``Animationen''} \vspace{20pt}
 		\begin{itemize}
@@ -168,7 +170,7 @@
 
 	
 	\metroset{sectionpage=simple}
-	\mysection{Spalten}
+	\section{Spalten}
 
 	\begin{frame}[t]{Zwei Spalten} \vspace{20pt}
 		\begin{columns}[T, onlytextwidth]
