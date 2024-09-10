@@ -1,3 +1,6 @@
+% Das ist mein Template für die Präsentationen an der DHBW Stuttgart. Nicht perfekt, also falls ihr Verbesserungsvorschläge habt, stellt gerne einen Pull-Request. https://github.com/NikomitK/TX000_Template
+% Bitte lasst auch einen star auf github da, danke.
+% Damit es richtig funktioniert, müssen die Schriftarten Fira Sans und Fira Mono installiert sein.
 \documentclass[ngerman,14pt,aspectratio=1610]{beamer}
 
 % Imports
@@ -7,23 +10,44 @@
 \usepackage{graphicx}
 \usepackage{multicol}
 \usepackage{textpos} %logo in frametitle
+\usepackage{ifthen}
 
 % Startpfad für Bilder setzen
 \graphicspath{ {./images/} }
 
 % DHBW Stuttgart logo mit transparentem Hintergrund
 \newcommand{\dhbwlogo}{\includegraphics[width=5cm]{dhbw_lang_trans}}
+\newcommand{\secpagnum}{\insertsectionnumber}
+
+\newcommand{\lastpagenum}{1}
+\let\oldframetitle\frametitle
+\renewcommand{\frametitle}[1]{
+	\ifthenelse{\equal{\lastpagenum}{\insertslidenumber}}{
+		\subsection{}
+		\renewcommand{\lastpagenum}{\insertslidenumber}
+	}{
+		% Hier soll nichts passieren, damit bei gleichen slides der title nicht neu gesetzt wird
+	}
+	\oldframetitle{\secpagnum~#1}
+		
+}
+
+
 
 % Multicol column balancing ausschalten
 \raggedcolumns
 
 % Basis-Theme
-\usetheme[progressbar=frametitle]{metropolis} % Hier kann die progressbar deaktiviert/replaziert werden
+\usetheme[progressbar=frametitle, block=fill, sectionpage=none]{metropolis} % Hier kann die progressbar deaktiviert/replaziert werden
 \setbeamertemplate{frame numbering}[counter]
 \useoutertheme{metropolis}
 \useinnertheme{metropolis}
 \usefonttheme{metropolis}
 \setbeamercolor{background canvas}{bg=white}
+
+% Sections im ToC Nummerieren
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
 
 % DHBW Farben
 \definecolor{dhbw_grau}{RGB}{93,104,110}
@@ -53,28 +77,40 @@
 }
 
 % Daten für die Titelseite
-\title{Implementierung Erweitertes Audit Logging}
+\title{Präsentationstitel}
 %\subtitle{subtitle}
-\author{Nikolas Bodenmüller}
+\author{Vorname Nachname}
 \institute[DHBW Stuttgart]{Duale Hochschule Baden-Württemberg Stuttgart}
-\date{24.09.2024}
+\date{24.09.2024}	
+\titlegraphic { 
+	\begin{tikzpicture}[overlay,remember picture]
+		\node[right=0.5cm] at (current page.155){
+			\dhbwlogo
+		};
+	\end{tikzpicture}
+}
 
 \begin{document}
-	\metroset{block=fill, sectionpage=simple}
-	
-	\titlegraphic { 
-		\begin{tikzpicture}[overlay,remember picture]
-			\node[right=0.5cm] at (current page.155){
-				\dhbwlogo
-			};
-		\end{tikzpicture}
-	}
 	
 	\begin{frame}[plain,noframenumbering]
 		\titlepage
 	\end{frame}
+
+	\section{Gliederung}
+	
+	\begin{frame}[t]{Gliederung}
+		\begin{multicols*}{2}
+			\tableofcontents
+		\end{multicols*}
+	\end{frame}
 	
 	
+	\renewcommand{\secpagnum}{\insertsectionnumber.\thesubsection}
+	
+	\metroset{sectionpage=simple} % Erst hier definiert, damit die Gliederung keine Sectionpage hat
+	\section{Mach erschmal die basics}
+	
+	\begin{frame}[t]{``Animationen''} \vspace{10pt}
 		\begin{itemize}
 			\item <1-> Hallo Welt
 			\item <2-> Beispielstichpunkt ab Schritt 2
@@ -89,6 +125,8 @@
 	\end{frame}
 
 	
+	\metroset{sectionpage=simple}
+	\section{Spalten}
 
 	
 	\begin{frame}[t]{Zwei Spalten} \vspace{10pt}
