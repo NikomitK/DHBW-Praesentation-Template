@@ -19,15 +19,13 @@
 % DHBW Stuttgart logo mit transparentem Hintergrund
 \newcommand{\dhbwlogo}{\includegraphics[width=5cm]{dhbw_lang_trans}}
 
-
-
 % Subsections zählen
 \def\secname{Gliederung}
 \newcommand{\mysection}[1]{
 	\section{#1}
 	\newtotcounter{#1}
 	\def\secname{#1}
-	}
+}
 
 \newcommand{\mysubsection}[1]{
 	\subsection{#1} 
@@ -52,8 +50,6 @@
 	\oldframetitle{\insertsectionnumber~#1}
 	}
 }
-
-
 
 % Multicol column balancing ausschalten
 \raggedcolumns
@@ -122,19 +118,18 @@
 
 	\mysection{Gliederung}
 	
-	\begin{frame}[t]{Gliederung}
-		\begin{multicols*}{2}
+	\begin{frame}[t]{Gliederung} \vspace{20pt}
+		\begin{columns}[T, onlytextwidth]
+			\column{0.5\textwidth}
 			\tableofcontents
-		\end{multicols*}
+			\column{0.5\textwidth}
+		\end{columns}
 	\end{frame}
-	
-	
-	
 	
 	\metroset{sectionpage=simple} % Erst hier definiert, damit die Gliederung keine Sectionpage hat
 	\mysection{Mach erschmal die basics}
 	
-	\begin{frame}[t]{``Animationen''} \vspace{10pt}
+	\begin{frame}[t]{``Animationen''} \vspace{20pt}
 		\begin{itemize}
 			\item <1-> Hallo Welt
 			\item <2-> Beispielstichpunkt ab Schritt 2
@@ -152,29 +147,26 @@
 	\metroset{sectionpage=simple}
 	\mysection{Spalten}
 
-	
-	\begin{frame}[t]{Zwei Spalten} \vspace{10pt}
+	\begin{frame}[t]{Zwei Spalten} \vspace{20pt}
 		\begin{columns}[T, onlytextwidth]
-			\begin{column}{0.45\textwidth}
+			\column{0.45\textwidth}
 				\begin{itemize}
 					\item test1
 					\item test2
 					\item test3
 				\end{itemize}
 				\begin{block}{Wichtig!}
-				Bei den Columns muss das große T als Argument verwendet werden
+					Bei den Columns muss das große T als Argument verwendet werden
 				\end{block}
-			\end{column}
 			
-			\begin{column}{0.45\textwidth}
+			\column{0.45\textwidth}
 				\includegraphics[width=\linewidth]{testbild}
-			\end{column}
 		\end{columns}
 	\end{frame}
 
 		
-	\begin{frame}[t]{Drei Spalten} \vspace{10pt}
-		\begin{columns}[onlytextwidth]
+	\begin{frame}[t]{Drei Spalten} \vspace{20pt}
+		\begin{columns}[T, onlytextwidth]
 			\column{0.33\textwidth}
 			Spalte 1
 			\column{0.33\textwidth}
@@ -184,7 +176,7 @@
 		\end{columns}
 	\end{frame}
 	
-	\begin{frame}{Automatisch verteilte Spalten}
+	\begin{frame}[t]{Automatisch verteilte Spalten} \vspace{20pt}
 		\begin{multicols*}{3}
 			[
 			\textbf{Multicols} \\
@@ -205,7 +197,6 @@
 			\end{enumerate}
 		\end{multicols*}
 	\end{frame}
-	
-	\mysection{test}
+
 
 \end{document}
